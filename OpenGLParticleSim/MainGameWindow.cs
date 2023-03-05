@@ -20,7 +20,7 @@ public class MainGameWindow : GameWindow
     {
         base.OnLoad();
         GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        _triangle = new Circle();
+        _triangle = new Rectangle();
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -47,14 +47,24 @@ public class MainGameWindow : GameWindow
             Close();
         }
 
-        if (input.IsKeyPressed(Keys.Up))
+        if (input.IsKeyDown(Keys.Up))
         {
-            _triangle.SetPosition(new Vector3(_triangle.Position.X,_triangle.Position.Y+0.1f,_triangle.Position.Z));
+            _triangle.SetPosition(new Vector3(_triangle.Position.X,(float) (_triangle.Position.Y+0.1f*e.Time),_triangle.Position.Z));
         }
-        if (input.IsKeyPressed(Keys.Down))
+        if (input.IsKeyDown(Keys.Down))
         {
-            _triangle.SetPosition(new Vector3(_triangle.Position.X,_triangle.Position.Y-0.1f,_triangle.Position.Z));
+            _triangle.SetPosition(new Vector3(_triangle.Position.X,(float) (_triangle.Position.Y-0.1f*e.Time),_triangle.Position.Z));
         }
+        
+        if (input.IsKeyDown(Keys.Left))
+        {
+            _triangle.SetPosition(new Vector3((float) (_triangle.Position.X-0.1f*e.Time), _triangle.Position.Y,_triangle.Position.Z));
+        }
+        if (input.IsKeyDown(Keys.Right))
+        {
+            _triangle.SetPosition(new Vector3((float) (_triangle.Position.X+0.1f*e.Time),(float) (_triangle.Position.Y-0.1f*e.Time),_triangle.Position.Z));
+        }
+        
         
         if (input.IsKeyPressed(Keys.Space))
         {

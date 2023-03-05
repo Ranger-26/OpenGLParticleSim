@@ -3,25 +3,46 @@ using OpenTK.Mathematics;
 
 namespace OpenGLParticleSim.Drawables;
 
-public abstract class SimpleDrawingBase : DrawableObjectBase
+public class Rectangle : DrawableObjectBase
 {
+    private int VAO;
+    private int VBO;
+    private int EBO;
+
     private Shader _shader;
+    
+    private readonly float[] _vertices =
+    {
+        0.5f,  0.5f, 0.0f, // top right
+        0.5f, -0.5f, 0.0f, // bottom right
+        -0.5f, -0.5f, 0.0f, // bottom left
+        -0.5f,  0.5f, 0.0f, // top left
+    };
 
-    private int VBO, VAO;
-
-    private float[] _vertices;
+    // Then, we create a new array: indices.
+    // This array controls how the EBO will use those vertices to create triangles
+    private readonly uint[] _indices =
+    {
+        // Note that indices start at 0!
+        0, 1, 3, // The first triangle will be the top-right half of the triangle
+        1, 2, 3  // Then the second will be the bottom-left half of the triangle
+    };
 
     public override void Initialize()
     {
         base.Initialize();
-        _vertices = GetVerticies();
-        
         //create and bind vertex array
         VAO = GL.GenVertexArray();
         GL.BindVertexArray(VAO);
         
         //create a vertex buffer object and bind it
         VBO = GL.GenBuffer();
+        
+        //ebo stuff
+        EBO = GL.GenBuffer();
+        GL.BindBuffer(BufferTarget.ElementArrayBuffer, EBO);
+        GL.BufferData(BufferTarget.ElementArrayBuffer, _indices.Length * sizeof(uint), _indices, BufferUsageHint.StaticDraw);
+        
         GL.BindBuffer(BufferTarget.ArrayBuffer,VBO);
         //buffer the vertex data
         GL.BufferData(BufferTarget.ArrayBuffer, _vertices.Length * sizeof(float), _vertices, BufferUsageHint.StaticDraw);
@@ -38,12 +59,9 @@ public abstract class SimpleDrawingBase : DrawableObjectBase
 
     public override void DrawCall()
     {
-        _shader.Use();
+        _shader.Use();  
         _shader.SetMatrix4("transform", GetTranslationMatrix());
         GL.BindVertexArray(VAO);
-        GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+        GL.DrawElements(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0);
     }
-
-    public abstract float[] GetVerticies();
-        
 }

@@ -23,24 +23,33 @@ public abstract class DrawableObjectBase
     /// Perform the draw call for this mesh.
     /// </summary>
     public abstract void DrawCall();
-    
+
     /// <summary>
-    /// Sets the position of the object.
+    /// Called when the position of the object is set.
     /// </summary>
     /// <param name="newPosition">The new position of the object.</param>
-    public abstract void SetPosition(Vector3 newPosition);
+    public virtual void OnSetPosition(Vector3 newPosition)
+    {
+        
+    }
 
     /// <summary>
-    /// Sets the rotation of the object.
+    /// Called when the rotation of the object is set..
     /// </summary>
     /// <param name="newRotation">The new rotation of the object.</param>
-    public abstract void SetRotation(Vector3 newRotation);
+    public virtual void OnSetRotation(Vector3 newRotation)
+    {
+        
+    }
 
     /// <summary>
-    /// Sets the scale of the object.
+    /// Called when the scale of the object is set.
     /// </summary>
     /// <param name="newScale">The new scale of the object.</param>
-    public abstract void SetScale(Vector3 newScale);
+    public virtual void OnSetScale(Vector3 newScale)
+    {
+        
+    }
 
     /// <summary>
     /// Called once before the rendering starts.
@@ -59,5 +68,27 @@ public abstract class DrawableObjectBase
             Initialize();
         }
         DrawCall();
+    }
+    
+    protected Matrix4 GetTranslationMatrix()
+    {
+        return Matrix4.CreateScale(Scale) * Matrix4.CreateTranslation(Position);
+    }
+    
+    public void SetPosition(Vector3 newPosition)
+    {
+        Position = newPosition;
+        OnSetPosition(newPosition);
+    }
+
+    public void SetRotation(Vector3 newRotation)
+    {
+        throw new NotImplementedException();
+    }
+
+    public  void SetScale(Vector3 newScale)
+    {
+        Scale = newScale;
+        OnSetScale(newScale);
     }
 }
