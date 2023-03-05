@@ -20,11 +20,7 @@ public class MainGameWindow : GameWindow
     {
         base.OnLoad();
         GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        _triangle = new ConfigurableShape(new float[]{
-            -0.5f, -0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            0.0f,  0.5f, 0.0f
-        });
+        _triangle = new Circle();
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -68,6 +64,11 @@ public class MainGameWindow : GameWindow
         if (input.IsKeyPressed(Keys.M))
         {
             _triangle.SetScale(_triangle.Scale / 2);
+        }
+
+        if (input.IsKeyPressed(Keys.A))
+        {
+            Console.WriteLine($"{_triangle.Position}, {_triangle.Rotation}, {_triangle.Scale}");
         }
     }
     

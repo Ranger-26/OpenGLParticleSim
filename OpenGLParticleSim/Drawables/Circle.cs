@@ -9,24 +9,24 @@ public class Circle : DrawableObjectBase
 
     private List<ConfigurableShape> _triangles = new();
 
-    public Circle(float radius)
+    public Circle(float radius = 0.5f)
     {
         _radius = radius;
         
         var array = new List<float>();
 
-        for (int i = 1; i <= 90; i+=2)
+        for (int i = 0; i <= 360; i+=6)
         {
             float cosine = _radius*(float)Math.Cos(MathHelper.DegreesToRadians(i));
             float sine = _radius*(float)Math.Sin(MathHelper.DegreesToRadians(i));
             
-            Console.WriteLine($"X: {cosine}, Y: {sine}");
             
             Vector3 vertex1 = Vector3.Zero;
             Vector3 vertex2 = new Vector3(cosine, 0, 0);
             Vector3 vertex3 = new Vector3(cosine, sine, 0);
             
-            
+            Console.WriteLine($"Vertex: {vertex1}, Vertex 2: {vertex2}, Vertex 3: {vertex3}");
+
             
             array.Add(vertex1.X);
             array.Add(vertex1.Y);
@@ -61,6 +61,7 @@ public class Circle : DrawableObjectBase
 
     public override void SetPosition(Vector3 newPosition)
     {
+        Position = newPosition;
         foreach (var triangle in _triangles)
         {
             triangle.SetPosition(newPosition);
@@ -74,6 +75,7 @@ public class Circle : DrawableObjectBase
 
     public override void SetScale(Vector3 newScale)
     {
+        Scale = newScale;
         foreach (var triangle in _triangles)
         {
             triangle.SetScale(newScale);

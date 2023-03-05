@@ -6,11 +6,11 @@ public abstract class DrawableObjectBase
 {
     public static List<DrawableObjectBase> allObjects { get; private set; } = new();
     
-    public Vector3 Position { get; private set; }
+    public Vector3 Position { get; protected set; }
 
-    public Vector3 Rotation { get; private set; }
+    public Vector3 Rotation { get; protected set; }
     
-    public Vector3 Scale { get; private set; }
+    public Vector3 Scale { get; protected set; } = Vector3.One;
 
     public bool IsInitialized;
     

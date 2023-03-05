@@ -7,7 +7,7 @@ public class SimpleTriangle : SimpleDrawingBase
 {
     public override float[] GetVerticies()
     {
-        return new float[]{
+        return new[]{
             -0.5f, -0.5f, 0.0f,
             0.5f, -0.5f, 0.0f,
             0.0f,  0.5f, 0.0f

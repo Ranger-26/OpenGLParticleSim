@@ -10,11 +10,7 @@ public abstract class SimpleDrawingBase : DrawableObjectBase
     private int VBO, VAO;
 
     private float[] _vertices;
-
-    public Vector3 Scale { get; private set; } = Vector3.One;
     
-    public Vector3 Rotation { get; private set; } = Vector3.Zero;
-    public Vector3 Position { get; private set; }
 
     private Matrix4 GetTranslationMatrix()
     {
@@ -61,6 +57,7 @@ public abstract class SimpleDrawingBase : DrawableObjectBase
 
     public override void SetRotation(Vector3 newRotation)
     {
+        //Todo
         throw new NotImplementedException();
     }
 
