@@ -13,10 +13,10 @@ public class Rectangle : DrawableObjectBase
     
     private readonly float[] _vertices =
     {
-        0.5f,  0.5f, 0.0f, // top right
-        0.5f, -0.5f, 0.0f, // bottom right
-        -0.5f, -0.5f, 0.0f, // bottom left
-        -0.5f,  0.5f, 0.0f, // top left
+        0.25f,  0.5f, 0.0f, // top right
+        -0.25f, 0.5f, 0.0f, // bottom right
+        -0.25f, -0.5f, 0.0f, // bottom left
+        0.25f,  -0.5f, 0.0f, // top left
     };
 
     // Then, we create a new array: indices.
@@ -24,8 +24,8 @@ public class Rectangle : DrawableObjectBase
     private readonly uint[] _indices =
     {
         // Note that indices start at 0!
-        0, 1, 3, // The first triangle will be the top-right half of the triangle
-        1, 2, 3  // Then the second will be the bottom-left half of the triangle
+        0, 1, 2, // The first triangle will be the top-right half of the triangle
+        0, 3, 2  // Then the second will be the bottom-left half of the triangle
     };
 
     public override void Initialize()

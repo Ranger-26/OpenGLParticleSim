@@ -10,17 +10,26 @@ namespace OpenGLParticleSim;
 public class MainGameWindow : GameWindow
 {
     private DrawableObjectBase _triangle;
+
+    public static MainGameWindow Instance;
     
     public MainGameWindow(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings)
     {
-        
+        Instance = this;
     }
 
     protected override void OnLoad()
     {
         base.OnLoad();
         GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        _triangle = new Rectangle();
+        //_triangle = new Rectangle();
+
+        for (int i = 0; i < 5; i +=2)
+        {
+            var obj = new Rectangle();
+            obj.SetScale(new Vector3(0.1f,0.1f,0.1f));
+            obj.SetPosition(new Vector3(0.25f*i, 0.0f,0.0f));
+        }
     }
 
     protected override void OnRenderFrame(FrameEventArgs args)
@@ -85,7 +94,7 @@ public class MainGameWindow : GameWindow
     protected override void OnResize(ResizeEventArgs e)
     {
         base.OnResize(e);
-
+        Console.WriteLine($"New Size: {e.Size}");
         GL.Viewport(0, 0, Size.X, Size.Y);
     }
 }
